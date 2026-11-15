@@ -42,8 +42,8 @@ It is **read-only**. The only NMI method it can call is the Query API, so it can
 ## Setup
 
 ```bash
-git clone https://github.com/<you>/nmi-agents.git
-cd nmi-agents
+git clone https://github.com/spacerebel9900/NMI-Agents.git
+cd NMI-Agents/nmi-record-assistant
 npm install
 
 # Download the NMI bundle that tooling.json expects

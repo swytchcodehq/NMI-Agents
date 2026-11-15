@@ -9,6 +9,7 @@ Each agent is a self-contained Swytchcode project in its own folder, with its ow
 | Folder | What it does | Status |
 |---|---|---|
 | [`nmi-daily-close-agent/`](nmi-daily-close-agent/) | Read-only agent that reconciles NMI activity against a ledger and bank deposits, then writes a daily close report | Phase 1 of 8: Swytchcode configured, no agent code yet |
+| [`nmi-record-assistant/`](nmi-record-assistant/) | Read-only chat assistant: describe a transaction, customer, subscription or invoice in plain English and it finds the record and tells you its status (OpenAI + NMI Query API) | Working; not yet tested against a live NMI account |
 
 ## Getting started
 
