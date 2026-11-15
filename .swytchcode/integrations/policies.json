@@ -1,0 +1,69 @@
+{
+  "version": 2,
+  "policies": [
+    {
+      "id": "p1-deny-report-type",
+      "description": "Close agent reads transactions only; report_type opens vault, recurring, profile and receipt reports.",
+      "target": ["nmi_payments.query.php.create"],
+      "when": { "field": "report_type", "operator": "exists" },
+      "action": { "type": "POLICY_BLOCKED", "message": "report_type is not allowed for the close agent" }
+    },
+    {
+      "id": "p2-deny-pii-filters",
+      "description": "No searching by cardholder or customer PII.",
+      "target": ["nmi_payments.query.php.create"],
+      "when": {
+        "operator": "any",
+        "conditions": [
+          { "field": "cc_number", "operator": "exists" },
+          { "field": "first_name", "operator": "exists" },
+          { "field": "last_name", "operator": "exists" },
+          { "field": "email", "operator": "exists" },
+          { "field": "phone", "operator": "exists" },
+          { "field": "fax", "operator": "exists" },
+          { "field": "address1", "operator": "exists" },
+          { "field": "city", "operator": "exists" },
+          { "field": "state", "operator": "exists" },
+          { "field": "zip", "operator": "exists" },
+          { "field": "drivers_license_number", "operator": "exists" },
+          { "field": "drivers_license_dob", "operator": "exists" },
+          { "field": "drivers_license_state", "operator": "exists" }
+        ]
+      },
+      "action": { "type": "POLICY_BLOCKED", "message": "filtering on PII fields is not allowed" }
+    },
+    {
+      "id": "p3-require-date-window",
+      "description": "Every query except a transaction_id lookup must be bounded by start_date and end_date.",
+      "target": ["nmi_payments.query.php.create"],
+      "when": {
+        "operator": "all",
+        "conditions": [
+          { "field": "transaction_id", "operator": "not_exists" },
+          {
+            "operator": "any",
+            "conditions": [
+              { "field": "start_date", "operator": "not_exists" },
+              { "field": "end_date", "operator": "not_exists" }
+            ]
+          }
+        ]
+      },
+      "action": { "type": "POLICY_BLOCKED", "message": "start_date and end_date are required unless looking up by transaction_id" }
+    },
+    {
+      "id": "p4a-require-result-limit",
+      "description": "Unbounded result sets are not allowed.",
+      "target": ["nmi_payments.query.php.create"],
+      "when": { "field": "result_limit", "operator": "not_exists" },
+      "action": { "type": "POLICY_BLOCKED", "message": "result_limit is required" }
+    },
+    {
+      "id": "p4b-max-result-limit",
+      "description": "Cap page size at 500.",
+      "target": ["nmi_payments.query.php.create"],
+      "when": { "field": "result_limit", "operator": ">", "value": 500 },
+      "action": { "type": "POLICY_BLOCKED", "message": "result_limit must be 500 or less" }
+    }
+  ]
+}

@@ -1,0 +1,371 @@
+{
+  "editor": "claude",
+  "integrations": {
+    "nmi.nmi": {
+      "version": "1.0.0"
+    }
+  },
+  "mode": "sandbox",
+  "tools": {
+    "nmi_payments.query.php.create": {
+      "desc": "\u003e ❗️ Never Use Real API Keys\n\u003e\n\u003e Never use real API Keys when testing. The gateway allows Partners to create Test Merchant Accounts. Testing should always use keys from the Test Accounts and never keys from a Standard Account.\n\u003cdetails\u003e\n\u003csummary\u003eMethodology\u003c/summary\u003e\n\n**Overview**\n\nWhile our online reporting interface allows merchants to quickly and easily retrieve detailed information about past transactions, a need for additional flexibility may be required. For example, a merchant may have custom accounting software that requires up-to-date information about the settlement status of all credit card transactions every day.\n\nThis document describes how developers can query our reporting engine directly to retrieve transaction reports in a machine readable format. Once the data has been retrieved, it can then be parsed and imported into a variety of software applications.\n\n**Communication**\n\nThe communication protocol used to send messages to the Payment Gateway is through the HTTP protocol over an SSL connection (HTTPS). The format you must use is name/value pairs delimited by ampersand.\n\n| URL                                     | Example Post Data                                     |\n|:----------------------------------------|:------------------------------------------------------|\n| `https://secure.nmi.com/api/query.php`  | `security_key=security_key\u0026transaction_id=123456789`  |\n\nYou should POST your request to the Query API. The name/value pairs that are accepted by the Payment Gateway can be found in the 'Variables' section of this API.\n\nThe Query API can be tested with live credentials or a dedicated test account only. Please contact your Merchant Service Provider for more information.\n\nThe Query API will respond in Universal Time Coordinated (UTC).\n\n\u003c/details\u003e\n\n\u003cdetails\u003e\n\u003csummary\u003eExample Response\u003c/summary\u003e\n\n**Query with no report_type or report_type \"transaction\"**\n\n```xml\n\u003cnm_response\u003e\n    \u003ctransaction\u003e\n        \u003ctransaction_id\u003e2612675976\u003c/transaction_id\u003e\n        \u003cpartial_payment_id\u003e\u003c/partial_payment_id\u003e\n        \u003cpartial_payment_balance\u003e\u003c/partial_payment_balance\u003e\n        \u003cplatform_id\u003e\u003c/platform_id\u003e\n        \u003ctransaction_type\u003ecc\u003c/transaction_type\u003e\n        \u003ccondition\u003ecomplete\u003c/condition\u003e\n        \u003corder_id\u003e1234567890\u003c/order_id\u003e\n        \u003cauthorization_code\u003e123456\u003c/authorization_code\u003e\n        \u003cponumber\u003e\u003c/ponumber\u003e\n        \u003corder_description\u003e\u003c/order_description\u003e\n        \u003cfirst_name\u003eJohn\u003c/first_name\u003e\n        \u003clast_name\u003eSmith\u003c/last_name\u003e\n        \u003caddress_1\u003e123 Main St\u003c/address_1\u003e\n        \u003caddress_2\u003eApt B\u003c/address_2\u003e\n        \u003ccompany\u003e\u003c/company\u003e\n        \u003ccity\u003eNew York City\u003c/city\u003e\n        \u003cstate\u003eNY\u003c/state\u003e\n        \u003cpostal_code\u003e10001\u003c/postal_code\u003e\n        \u003ccountry\u003eUS\u003c/country\u003e\n        \u003cemail\u003ejohnsmith@example.com\u003c/email\u003e\n        \u003cphone\u003e1234567890\u003c/phone\u003e\n        \u003cfax\u003e\u003c/fax\u003e\n        \u003ccell_phone\u003e\u003c/cell_phone\u003e\n        \u003ccustomertaxid\u003e\u003c/customertaxid\u003e\n        \u003ccustomerid\u003e\u003c/customerid\u003e\n        \u003cwebsite\u003e\u003c/website\u003e\n        \u003cshipping_first_name\u003e\u003c/shipping_first_name\u003e\n        \u003cshipping_last_name\u003e\u003c/shipping_last_name\u003e\n        \u003cshipping_address_1\u003e\u003c/shipping_address_1\u003e\n        \u003cshipping_address_2\u003e\u003c/shipping_address_2\u003e\n        \u003cshipping_company\u003e\u003c/shipping_company\u003e\n        \u003cshipping_city\u003e\u003c/shipping_city\u003e\n        \u003cshipping_state\u003e\u003c/shipping_state\u003e\n        \u003cshipping_postal_code\u003e\u003c/shipping_postal_code\u003e\n        \u003cshipping_country\u003e\u003c/shipping_country\u003e\n        \u003cshipping_email\u003e\u003c/shipping_email\u003e\n        \u003cshipping_carrier\u003e\u003c/shipping_carrier\u003e\n        \u003ctracking_number\u003e\u003c/tracking_number\u003e\n        \u003cshipping_date\u003e\u003c/shipping_date\u003e\n        \u003cshipping\u003e1.00\u003c/shipping\u003e\n        \u003cshipping_phone\u003e\u003c/shipping_phone\u003e\n        \u003ccc_number\u003e4xxxxxxxxxxx1111\u003c/cc_number\u003e\n        \u003ccc_hash\u003ef6c609e195d9d4c185dcc8ca662f0180\u003c/cc_hash\u003e\n        \u003ccc_exp\u003e1215\u003c/cc_exp\u003e\n        \u003ccavv\u003e\u003c/cavv\u003e\n        \u003ccavv_result\u003e\u003c/cavv_result\u003e\n        \u003cxid\u003e\u003c/xid\u003e\n        \u003ceci\u003e\u003c/eci\u003e\n        \u003cdirectory_server_id\u003e\u003c/directory_server_id\u003e\n        \u003cthree_ds_version\u003e\u003c/three_ds_version\u003e\n        \u003cavs_response\u003eN\u003c/avs_response\u003e\n        \u003ccsc_response\u003eM\u003c/csc_response\u003e\n        \u003ccardholder_auth\u003e\u003c/cardholder_auth\u003e\n        \u003ccc_start_date\u003e\u003c/cc_start_date\u003e\n        \u003ccc_issue_number\u003e\u003c/cc_issue_number\u003e\n        \u003ccheck_account\u003e\u003c/check_account\u003e\n        \u003ccheck_hash\u003e\u003c/check_hash\u003e\n        \u003ccheck_aba\u003e\u003c/check_aba\u003e\n        \u003ccheck_name\u003e\u003c/check_name\u003e\n        \u003caccount_holder_type\u003e\u003c/account_holder_type\u003e\n        \u003caccount_type\u003e\u003c/account_type\u003e\n        \u003csec_code\u003e\u003c/sec_code\u003e\n        \u003cdrivers_license_number\u003e\u003c/drivers_license_number\u003e\n        \u003cdrivers_license_state\u003e\u003c/drivers_license_state\u003e\n        \u003cdrivers_license_dob\u003e\u003c/drivers_license_dob\u003e\n        \u003csocial_security_number\u003e\u003c/social_security_number\u003e\n        \u003cprocessor_id\u003eprocessora\u003c/processor_id\u003e\n        \u003ctax\u003e1.00\u003c/tax\u003e\n        \u003ccurrency\u003eUSD\u003c/currency\u003e\n        \u003csurcharge\u003e\u003c/surcharge\u003e\n        \u003cconvenience_fee\u003e\u003c/convenience_fee\u003e\n        \u003cmisc_fee\u003e\u003c/misc_fee\u003e\n        \u003cmisc_fee_name\u003e\u003c/misc_fee_name\u003e\n        \u003ccash_discount\u003e\u003c/cash_discount\u003e\n        \u003ctip\u003e\u003c/tip\u003e\n        \u003ccard_balance\u003e\u003c/card_balance\u003e\n        \u003ccard_available_balance\u003e\u003c/card_available_balance\u003e\n        \u003centry_mode\u003eKeyed\u003c/entry_mode\u003e\n        \u003ccc_bin\u003e411111\u003c/cc_bin\u003e\n        \u003ccc_type\u003evisa\u003c/cc_type\u003e\n        \u003csignature_image\u003e\n            iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAARnQU1BAA\n                Cxjwv8YQUAAAAJcEhZcwAAEnQA\n            ABJ0Ad5mH3gAAACGSURBVDhPlZGBEoAgCEO1//9nG83mxMrr3dkBG0hVW2vFqLX26CYbPIc7yS\n                AVe8LBq5u4elyV4M0NXIoGXYqA\n            w4QqMAwJCRu+Az7HSlvgHtexlFKwGrLjG/h/rESmhrhRnLCKwjiNeLYv5QsXOoNSig8IsNYaZ0\n                tXJoGU9hU1k18XlZLOQHTenf7I\n            cf3BwAAAABJRU5ErkJggg==\n        \u003c/signature_image\u003e\n        \u003cproduct\u003e\n            \u003csku\u003eRS-100\u003c/sku\u003e\n            \u003cquantity\u003e1.0000\u003c/quantity\u003e\n            \u003cdescription\u003eRed Shirt\u003c/description\u003e\n            \u003camount\u003e10.0000\u003c/amount\u003e\n        \u003c/product\u003e\n        \u003caction\u003e\n            \u003camount\u003e11.00\u003c/amount\u003e\n            \u003caction_type\u003esale\u003c/action_type\u003e\n            \u003cdate\u003e20150312215205\u003c/date\u003e\n            \u003csuccess\u003e1\u003c/success\u003e\n            \u003cip_address\u003e1.1.1.1\u003c/ip_address\u003e\n            \u003csource\u003evirtual_terminal\u003c/source\u003e\n            \u003capi_method\u003e\u003c/api_method\u003e\n            \u003cusername\u003edemo\u003c/username\u003e\n            \u003cresponse_text\u003eSUCCESS\u003c/response_text\u003e\n            \u003cbatch_id\u003e0\u003c/batch_id\u003e\n            \u003cprocessor_batch_id\u003e\u003c/processor_batch_id\u003e\n            \u003cresponse_code\u003e100\u003c/response_code\u003e\n            \u003cprocessor_response_text\u003eNO MATCH\u003c/processor_response_text\u003e\n            \u003cprocessor_response_code\u003e00\u003c/processor_response_code\u003e\n            \u003crequested_amount\u003e11.00\u003c/requested_amount\u003e\n            \u003cdevice_license_number\u003e\u003c/device_license_number\u003e\n            \u003cdevice_nickname\u003e\u003c/device_nickname\u003e\n        \u003c/action\u003e\n        \u003caction\u003e\n            \u003camount\u003e11.00\u003c/amount\u003e\n            \u003caction_type\u003elevel3\u003c/action_type\u003e\n            \u003cdate\u003e20150312215205\u003c/date\u003e\n            \u003csuccess\u003e1\u003c/success\u003e\n            \u003cip_address\u003e1.1.1.1\u003c/ip_address\u003e\n            \u003csource\u003evirtual_terminal\u003c/source\u003e\n            \u003capi_method\u003e\u003c/api_method\u003e\n            \u003cusername\u003edemo\u003c/username\u003e\n            \u003cresponse_text\u003e\u003c/response_text\u003e\n            \u003cbatch_id\u003e0\u003c/batch_id\u003e\n            \u003cprocessor_batch_id\u003e\u003c/processor_batch_id\u003e\n            \u003cresponse_code\u003e100\u003c/response_code\u003e\n            \u003cprocessor_response_text\u003e\u003c/processor_response_text\u003e\n            \u003cprocessor_response_code\u003e\u003c/processor_response_code\u003e\n            \u003cdevice_license_number\u003e\u003c/device_license_number\u003e\n            \u003cdevice_nickname\u003e\u003c/device_nickname\u003e\n        \u003c/action\u003e\n        \u003caction\u003e\n            \u003camount\u003e11.00\u003c/amount\u003e\n            \u003caction_type\u003esettle\u003c/action_type\u003e\n            \u003cdate\u003e20150313171503\u003c/date\u003e\n            \u003csuccess\u003e1\u003c/success\u003e\n            \u003cip_address\u003e\u003c/ip_address\u003e\n            \u003csource\u003einternal\u003c/source\u003e\n            \u003capi_method\u003e\u003c/api_method\u003e\n            \u003cusername\u003e\u003c/username\u003e\n            \u003cresponse_text\u003eACCEPTED\u003c/response_text\u003e\n            \u003cbatch_id\u003e76158269\u003c/batch_id\u003e\n            \u003cprocessor_batch_id\u003e782\u003c/processor_batch_id\u003e\n            \u003cresponse_code\u003e100\u003c/response_code\u003e\n            \u003cprocessor_response_text\u003e\u003c/processor_response_text\u003e\n            \u003cprocessor_response_code\u003e0000000000021980\u003c/processor_response_code\u003e\n            \u003cdevice_license_number\u003e\u003c/device_license_number\u003e\n            \u003cdevice_nickname\u003e\u003c/device_nickname\u003e\n        \u003c/action\u003e\n    \u003c/transaction\u003e\n\u003c/nm_response\u003e\n```\n\u003c/details\u003e\n\n\u003cdetails\u003e\n\u003csummary\u003eExample Response With Processor Details\u003c/summary\u003e\n\n**Query with report_type \"profile\" and processor_details \"true\"**\n\n```xml\n\u003cnm_response\u003e\n    \u003cprotected\u003efalse\u003c/protected\u003e\n    \u003cis_gateway\u003efalse\u003c/is_gateway\u003e\n    \u003cmerchant\u003e\n        \u003ccompany\u003eTest Company\u003c/company\u003e\n        \u003cemail\u003ejohnsmith@example.com\u003c/email\u003e\n        \u003cphone\u003e123-456-7890\u003c/phone\u003e\n        \u003curl\u003e\u003c/url\u003e\n        \u003caddress1\u003e123 Fake St\u003c/address1\u003e\n        \u003caddress2\u003e\u003c/address2\u003e\n        \u003ccity\u003eBeverly Hills\u003c/city\u003e\n        \u003cstate\u003eCA\u003c/state\u003e\n        \u003czip\u003e90210\u003c/zip\u003e\n        \u003ccountry\u003eUS\u003c/country\u003e\n        \u003ctimezone\u003eAmerica/New_York (GMT-05:00) Eastern Time (US \u0026 Canada)\u003c/timezone\u003e\n        \u003ccard_schemes\u003eVisa,Mastercard,American Express,Discover,Diner's Club,JCB,Maestro,Banco Popular,Isracard,Hipercard,Credomatic Card,EBT\u003c/card_schemes\u003e\n    \u003c/merchant\u003e\n    \u003cgateway\u003e\n        \u003ccompany\u003eTest Reseller\u003c/company\u003e\n        \u003curl\u003e\u003c/url\u003e\n        \u003cemail\u003ejohnsmith@example.com\u003c/email\u003e\n        \u003cphone\u003e123-456-7890\u003c/phone\u003e\n        \u003cprimary_color\u003e36175F\u003c/primary_color\u003e\n        \u003ccomplimentary_color_1\u003eF1577B\u003c/complimentary_color_1\u003e\n        \u003ccomplimentary_color_2\u003e26CC9D\u003c/complimentary_color_2\u003e\n    \u003c/gateway\u003e\n    \u003cmerchant_defined_fields\u003e\u003c/merchant_defined_fields\u003e\n    \u003cmerchant_favicon\u003eiVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAMAAAAKE/YAAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAACfUExURUdwTPX19fX19fb29vn5+fX19fX19fb29vX19fX19fb29vb29v////b29vX19f////n5+fX19fn5+fX19ff39/X19fb29vX19fb29vX19f////X19fX19fb29vX19fb29vX19fX19fb29mRkZBcXF/X19e7u7hsbGx8fH0dHR8rKytjY2IWFhb6+vqysrDk5OTg4OFBQUCgoKCEhISIiIjOJ5RMAAAAjdFJOUwD83x8tUeeStfk9rAbl7w8wzDHsINJ82Y42CcFnf/0/9v4+JiMvSAAAAqRJREFUeNrt3dlSwkAUBNBhkSTsyCqr4lyRffP/v81dS0wmQCnc1u5Hn85DhAxV022MK+1ht+XXk9VATpSgmqz7re6wbY7MVa9zMuw3fKd3dbi41mjKmdNs1A4iX+b6oiD93OXe5LIvauKX9yKXvIQoSsIrxZsvMqIsmYsYct4ThfHyLnOqIipTSUWb0wVRmkI6ypwtitoUsxHma1Gc61B1uiiqUwx5QlIFUZ7Ct//GfEXUp7L7yecJQLyd70GByJfvxlIGA50poT0cOw9IOYGCTny+qfoCE//jnCJAeT/L5JDQubcz7A0Suv962m0IVBov6CYWuvnym4yA5flXnB4auveE7qChO8a0AzR00DYDgcvAdPHQXdPCQ7eQXpY+X5rqeOi6SeKhk6aKh66aiI/pyWy92tpzZrtazybhH9Qm9M+LpdWR5SKMF4aejq2ejKd7oecbqymb+R7o+cjqymgei55urLZspnHosdWXcQx6YTVm4UYvVaKXTvTE6szEhZ4pRc9c6LVS9NqFXilFr1zorVL01oW2WkM00Uei77XGhb7VGqKJJppoookmmmiiiSaaaKKJJloTeqQ1/FmMaKKJJppoookm+qfQd78aookmmmiiiSaaaKKJ/ttonlyIJhrgYEs00UQTTTTR/wPNdw+iMS6cPfy5q32Qlyghr6tCXgyGvIKNedkdslYAs8ABsioDs5QEs/4Fs2hHe6VRJFp1TIBnDjBruiAL0SCr5yBL/iDrFCGLKwErQoeYZayQtbeYBcOQVc6QpdmY9eSQRfCQlfuY4waQMxKYgx2Q0yiYIzSQcz+Yw0qYE1aQY2GYs2yYA3iYU4OYo46Y85mYQ6WYk7Cg47uYM8evg9Iqzo2HDEqDTneDjqS/zdEPzjNHP3DP0T8C4oBc15g2YiAAAAAASUVORK5CYII=\u003c/merchant_favicon\u003e\n    \u003caccount_details\u003e\n        \u003caccount_status\u003eactive\u003c/account_status\u003e\n        \u003ctest_mode_enabled\u003efalse\u003c/test_mode_enabled\u003e\n    \u003c/account_details\u003e\n\u003c/nm_response\u003e\n```\n\u003c/details\u003e",
+      "inputs": [
+        {
+          "security_key": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "condition": {
+            "ENUM": [
+              "pending",
+              "pendingsettlement",
+              "in_progress",
+              "abandoned",
+              "failed",
+              "canceled",
+              "complete",
+              "unknown"
+            ],
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "transaction_type": {
+            "ENUM": [
+              "cc",
+              "ck",
+              "cs"
+            ],
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "action_type": {
+            "ENUM": [
+              "sale",
+              "refund",
+              "credit",
+              "auth",
+              "capture",
+              "void",
+              "return",
+              "validate"
+            ],
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "source": {
+            "ENUM": [
+              "api",
+              "batch_upload",
+              "mobile",
+              "quickclick",
+              "quickbooks",
+              "recurring",
+              "swipe",
+              "virtual_terminal",
+              "internal"
+            ],
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "transaction_id": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "subscription_id": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "invoice_id": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "partial_payment_id": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "order_id": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "first_name": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "last_name": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "address1": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "city": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "state": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "zip": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "phone": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "fax": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "order_description": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "drivers_license_number": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "drivers_license_dob": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "drivers_license_state": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "email": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "cc_number": {
+            "ENUM": [
+              "4111111111111111",
+              "5431111111111111",
+              "6011000991300009",
+              "341111111111111",
+              "30205252489926",
+              "3541963594572595",
+              "6799990100000000019",
+              "1111",
+              "0009",
+              "9926",
+              "2595",
+              "0019"
+            ],
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "merchant_defined_field_1": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "start_date": {
+            "FORMAT": "date-time",
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "TIMESTAMP"
+          }
+        },
+        {
+          "end_date": {
+            "FORMAT": "date-time",
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "TIMESTAMP"
+          }
+        },
+        {
+          "report_type": {
+            "ENUM": [
+              "receipt",
+              "customer_vault",
+              "recurring",
+              "recurring_plans",
+              "invoicing",
+              "gateway_processors",
+              "account_updater",
+              "test_mode_status",
+              "profile"
+            ],
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "mobile_device_license": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "mobile_device_nickname": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "customer_vault_id": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "date_search": {
+            "ENUM": [
+              "created",
+              "updated"
+            ],
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "result_limit": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "INT"
+          }
+        },
+        {
+          "page_number": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "INT"
+          }
+        },
+        {
+          "result_order": {
+            "ENUM": [
+              "standard",
+              "reverse"
+            ],
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "invoice_status": {
+            "ENUM": [
+              "open",
+              "paid",
+              "closed",
+              "past_due"
+            ],
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "processor_details": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        },
+        {
+          "additionalProperties": {
+            "LOCATION": "body",
+            "REQUIRED": false,
+            "TYPE": "STRING"
+          }
+        }
+      ],
+      "integration": "nmi.nmi@1.0.0",
+      "method_hash": "704a970bbfd3691c719f845f6d7c20b9af45f17b027e360031bf28983d7d506f",
+      "output": {
+        "schema": {
+          "type": "any"
+        },
+        "status": 200
+      },
+      "summary": "Query API",
+      "type": "method"
+    }
+  },
+  "version": "2.25.5",
+  "workspace": "nmi-test"
+}

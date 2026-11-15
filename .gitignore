@@ -1,0 +1,14 @@
+.swytchcode/workspace.json
+
+# Swytchcode runtime and re-fetchable files
+.swytchcode/mcp.pid
+.swytchcode/*.lock
+.swytchcode/integrations/*.lock
+.swytchcode/integrations/nmi/
+.swytchcode/logs/
+
+# Secrets and generated output
+.env
+.env.*
+out/
+node_modules/
