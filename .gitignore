@@ -1,0 +1,16 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies and build output
+node_modules/
+dist/
+
+# Swytchcode runtime and re-fetchable files (restore with `swytchcode bootstrap`)
+.swytchcode/workspace.json
+.swytchcode/mcp.pid
+.swytchcode/*.lock
+.swytchcode/integrations/*.lock
+.swytchcode/integrations/nmi/
+.swytchcode/logs/
